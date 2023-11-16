@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Number Guessing Game</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <style>
+    body {
+      background-color: #212121;
+      color: #fff;
+      text-align: center;
+      margin-top: 20%;
+    }
+    button {
+      padding: 10px;
+      margin: 10px;
+      font-size: medium;
+      width: 100px;
+    }
+  </style>
+  <body>
+    <h1>
+      Start should change the Background color every second and By clicking stop
+      it should stop changing.
+    </h1>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <p id="clr"></p>
+    <script src="chaiaurcode.js"></script>
+  </body>
+  <script>
+    const start = document.getElementById("start");
+    const stop = document.getElementById("stop");
+    const clr = document.getElementById("clr");
+
+    let color;
+    const randomColor = function () {
+      const hex = "0123456789ABCDEF";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += hex[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    };
+
+    let intervalId;
+    const changeBC = function () {
+      if (!intervalId) {
+        intervalId = setInterval(function () {
+          document.body.style.backgroundColor = randomColor();
+          clr.innerHTML = `<span> current color hexa code : ${randomColor()}</span>`
+        }, 1000);
+      }
+    };
+
+    const stopBC = function () {
+      clearInterval(intervalId);
+      intervalId = null;
+    };
+
+    start.addEventListener("click", changeBC);
+
+    stop.addEventListener("click", stopBC);
+  </script>
+</html>
